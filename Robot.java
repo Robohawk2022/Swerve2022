@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.RoboSwerve;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -57,7 +58,6 @@ public class Robot extends TimedRobot {
   private Timer autoTimer;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
   // MAX SPEED
-  private int SpeedLimiter;
 
   /**
    * This function is run when the robot is first started up and should be used for any
