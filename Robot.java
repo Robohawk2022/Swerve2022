@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.RoboSwerve;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -58,8 +57,8 @@ public class Robot extends TimedRobot {
   private Timer autoTimer;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
   //SET ROBOT WIDTH AND LENGTH
-  public final double L = LENGTH_YOU_WROTE;
-  public final double W = WIDTH_YOU_WROTE;
+  public final double L = 0;
+  public final double W = 0;
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -222,16 +221,7 @@ public class Robot extends TimedRobot {
           m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
           m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);   
         }
-        else {
-          FLdriveMotor.set(0);
-          FRdriveMotor.set(0);
-          BRdriveMotor.set(0);
-          BLdriveMotor.set(0);
-          m_PIDController1.setReference(0), CANSparkMax.ControlType.kPosition);
-          m_PIDController2.setReference(0), CANSparkMax.ControlType.kPosition);
-          m_PIDController3.setReference(0), CANSparkMax.ControlType.kPosition);
-          m_PIDController4.setReference(0), CANSparkMax.ControlType.kPosition);  
-        }
+
         
         RotationalSwerve();
         StrafeSwerve();
@@ -262,16 +252,6 @@ public class Robot extends TimedRobot {
       m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
       BRdriveMotor.set(-.25);    
      }
-    else {
-      FLdriveMotor.set(0);
-      FRdriveMotor.set(0);
-      BRdriveMotor.set(0);
-      BLdriveMotor.set(0);
-      m_PIDController1.setReference(0), CANSparkMax.ControlType.kPosition);
-      m_PIDController2.setReference(0), CANSparkMax.ControlType.kPosition);
-      m_PIDController3.setReference(0), CANSparkMax.ControlType.kPosition);
-      m_PIDController4.setReference(0), CANSparkMax.ControlType.kPosition);  
-      }
   } 
 
   public void StrafeSwerve() {
