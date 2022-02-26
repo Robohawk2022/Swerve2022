@@ -22,14 +22,14 @@ public class RoboSwerve {
      * Documentation located in GitBooks
      */
     public static void SwerveInit() {
-        final int  FLangleID = 8;
-        final int FLdriveID = 7;
-        final int  FRangleID = 6;
-        final int FRdriveID = 5;
-        final int  BRangleID = 4;
-        final int BRdriveID = 3;
-        final int  BLangleID = 2;
-        final int BLdriveID = 1;
+        private static final int  FLangleID = 8;
+        private static final int FLdriveID = 7;
+        private static final int  FRangleID = 6;
+        private static final int FRdriveID = 5;
+        private static final int  BRangleID = 4;
+        private static final int BRdriveID = 3;
+        private static final int  BLangleID = 2;
+        private static final int BLdriveID = 1;
         CANSparkMax FLangleMotor;
         CANSparkMax FLdriveMotor;
         CANSparkMax FRdriveMotor;
