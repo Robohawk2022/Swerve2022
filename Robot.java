@@ -57,12 +57,9 @@ public class Robot extends TimedRobot {
   private XboxController drive_control;
   private Timer autoTimer;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
-  // MAX SPEED
-
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
+  //SET ROBOT WIDTH AND LENGTH
+  public final double L = LENGTH_YOU_WROTE;
+  public final double W = WIDTH_YOU_WROTE;
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -78,36 +75,19 @@ public class Robot extends TimedRobot {
         BRdriveMotor = new CANSparkMax(BRdriveID, MotorType.kBrushless);
         BLdriveMotor = new CANSparkMax(BLdriveID, MotorType.kBrushless);
         BLangleMotor = new CANSparkMax(BLangleID, MotorType.kBrushless);
-        /**
-         * The restoreFactoryDefaults method can be used to reset the configuration parameters
-         * in the SPARK MAX to their factory default state. If no argument is passed, these
-         * parameters will not persist between power cycles
-         */
 
-
-    
-        /**
-         * In order to use PID functionality for a controller, a SparkMaxPIDController object
-         * is constructed by calling the getPIDController() method on an existing
-         * CANSparkMax object
-         */
         m_PIDController1 = FLangleMotor.getPIDController();
         m_PIDController2 = FRangleMotor.getPIDController();
         m_PIDController3 = BRangleMotor.getPIDController();
         m_PIDController4 = BLangleMotor.getPIDController();
 
-
-    
-        // Encoder object created to display position values
         m_encoder1 = FLangleMotor.getEncoder();
         m_encoder2 = FRangleMotor.getEncoder();
         m_encoder3 = BRangleMotor.getEncoder();
         m_encoder4 = BLangleMotor.getEncoder();
 
-        // Auto Timer
         autoTimer = new Timer();
     
-        // PID coefficients
         kP = 0.1; 
         kI = 1e-4;
         kD = 1; 
@@ -116,7 +96,6 @@ public class Robot extends TimedRobot {
         kMaxOutput = 1; 
         kMinOutput = -1;
     
-        // set PID coefficients
         m_PIDController1.setP(kP);
         m_PIDController2.setP(kP);
         m_PIDController3.setP(kP);
@@ -142,13 +121,11 @@ public class Robot extends TimedRobot {
         m_PIDController3.setFF(kFF);
         m_PIDController4.setFF(kFF);
 
-
         m_PIDController1.setOutputRange(kMinOutput, kMaxOutput);
         m_PIDController2.setOutputRange(kMinOutput, kMaxOutput);
         m_PIDController3.setOutputRange(kMinOutput, kMaxOutput);
         m_PIDController4.setOutputRange(kMinOutput, kMaxOutput);
     
-        // display PID coefficients on SmartDashboard
         SmartDashboard.putNumber("P Gain", kP);
         SmartDashboard.putNumber("I Gain", kI);
         SmartDashboard.putNumber("D Gain", kD);
@@ -222,44 +199,7 @@ public class Robot extends TimedRobot {
         double rotations = SmartDashboard.getNumber("Set Rotations", 0);
         double Speed_Motor = SmartDashboard.getNumber("Run Speed Motor?", 0);
         boolean drive_mode = SmartDashboard.getBoolean("Joystick Control", false);
-        // if PID coefficients on SmartDashboard have changed, write new values to controller
-        if((p != kP)) { 
-          m_PIDController1.setP(p); kP = p; 
-          m_PIDController2.setP(p); kP = p; 
-          m_PIDController3.setP(p); kP = p; 
-          m_PIDController4.setP(p); kP = p; 
-        }
-        if((i != kI)) { 
-          m_PIDController1.setI(i); kI = i; 
-          m_PIDController2.setI(i); kI = i; 
-          m_PIDController3.setI(i); kI = i; 
-          m_PIDController4.setI(i); kI = i; 
-        }
-        if((d != kD)) { 
-          m_PIDController1.setD(d); kD = d; 
-          m_PIDController2.setD(d); kD = d; 
-          m_PIDController3.setD(d); kD = d; 
-          m_PIDController4.setD(d); kD = d; 
-        }
-        if((iz != kIz)) {
-           m_PIDController1.setIZone(iz); kIz = iz; 
-           m_PIDController2.setIZone(iz); kIz = iz; 
-           m_PIDController3.setIZone(iz); kIz = iz; 
-           m_PIDController4.setIZone(iz); kIz = iz;           
-          }
-        if((ff != kFF)) { 
-          m_PIDController1.setFF(ff); kFF = ff; 
-          m_PIDController2.setFF(ff); kFF = ff; 
-          m_PIDController3.setFF(ff); kFF = ff; 
-          m_PIDController4.setFF(ff); kFF = ff; 
-        }
-        if((max != kMaxOutput) || (min != kMinOutput)) { 
-          m_PIDController1.setOutputRange(min, max); 
-          m_PIDController2.setOutputRange(min, max); 
-          m_PIDController3.setOutputRange(min, max); 
-          m_PIDController4.setOutputRange(min, max); 
-          kMinOutput = min; kMaxOutput = max; 
-        }
+
         if(drive_control.getLeftY() > 0) {
           FLdriveMotor.set((drive_control.getLeftY() * -1) / 4);
           FRdriveMotor.set((drive_control.getLeftY() * -1) / 4);
@@ -282,7 +222,16 @@ public class Robot extends TimedRobot {
           m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
           m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);   
         }
-
+        else {
+          FLdriveMotor.set(0);
+          FRdriveMotor.set(0);
+          BRdriveMotor.set(0);
+          BLdriveMotor.set(0);
+          m_PIDController1.setReference(0), CANSparkMax.ControlType.kPosition);
+          m_PIDController2.setReference(0), CANSparkMax.ControlType.kPosition);
+          m_PIDController3.setReference(0), CANSparkMax.ControlType.kPosition);
+          m_PIDController4.setReference(0), CANSparkMax.ControlType.kPosition);  
+        }
         
         RotationalSwerve();
         StrafeSwerve();
@@ -313,6 +262,16 @@ public class Robot extends TimedRobot {
       m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
       BRdriveMotor.set(-.25);    
      }
+    else {
+      FLdriveMotor.set(0);
+      FRdriveMotor.set(0);
+      BRdriveMotor.set(0);
+      BLdriveMotor.set(0);
+      m_PIDController1.setReference(0), CANSparkMax.ControlType.kPosition);
+      m_PIDController2.setReference(0), CANSparkMax.ControlType.kPosition);
+      m_PIDController3.setReference(0), CANSparkMax.ControlType.kPosition);
+      m_PIDController4.setReference(0), CANSparkMax.ControlType.kPosition);  
+      }
   } 
 
   public void StrafeSwerve() {
