@@ -57,8 +57,19 @@ public class Robot extends TimedRobot {
   private Timer autoTimer;
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
   //SET ROBOT WIDTH AND LENGTH
-  public final double L = 0;
-  public final double W = 0;
+  public final double L = 33;
+  public final double W = 27;
+  //ROTATION MATH
+  double rotationSpeed = Math.sqrt((L * L) + (W * W));
+  double a = (L / rotationSpeed);
+  double b = (L / rotationSpeed);
+  double c = (W / rotationSpeed);
+  double d = (W / rotationSpeed);
+  double backRightSpeed = Math.sqrt ((a * a) + (d * d));
+  double backLeftSpeed = Math.sqrt ((a * a) + (c * c));
+  double frontRightSpeed = Math.sqrt ((b * b) + (d * d));
+  double frontLeftSpeed = Math.sqrt ((b * b) + (c * c));
+  // ALL PARAMS SET
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -233,24 +244,24 @@ public class Robot extends TimedRobot {
   public void RotationalSwerve() {
     if(drive_control.getRightX() > .005) {
       m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-      FLdriveMotor.set(.25);
+      FLdriveMotor.set(frontLeftSpeed);
       m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-      FRdriveMotor.set(-.25);
+      FRdriveMotor.set(-1 * frontRightSpeed);
       m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-      BLdriveMotor.set(-.25);
+      BLdriveMotor.set(-1 * backLeftSpeed);
       m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-      BRdriveMotor.set(.25);
+      BRdriveMotor.set(backRightSpeed);
     }
        // Rotation
     if(drive_control.getRightX() < -.005) {
       m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-      FLdriveMotor.set(-.25);
+      FLdriveMotor.set(-1 * frontLeftSpeed);
       m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-      FRdriveMotor.set(.25);
+      FRdriveMotor.set(frontRightSpeed);
       m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-      BLdriveMotor.set(.25);
+      BLdriveMotor.set(backLeftSpeed);
       m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-      BRdriveMotor.set(-.25);    
+      BRdriveMotor.set(-1 * backRightSpeed);    
      }
   } 
 
