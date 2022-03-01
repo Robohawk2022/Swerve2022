@@ -211,209 +211,114 @@ public class Robot extends TimedRobot {
         double Speed_Motor = SmartDashboard.getNumber("Run Speed Motor?", 0);
         boolean drive_mode = SmartDashboard.getBoolean("Joystick Control", false);
 
-        // if(drive_control.getLeftY() > 0) {
-        //   FLdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-        //   FRdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-        //   BRdriveMotor.set(drive_control.getLeftY() / 4);
-        //   BLdriveMotor.set(drive_control.getLeftY() / 4);
+        if(drive_control.getLeftY() > 0) {
+          FLdriveMotor.set((drive_control.getLeftY() * -1) / 4);
+          FRdriveMotor.set((drive_control.getLeftY() * -1) / 4);
+          BRdriveMotor.set(drive_control.getLeftY() / 4);
+          BLdriveMotor.set(drive_control.getLeftY() / 4);
   
-        //   m_PIDController1.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
-        //   m_PIDController2.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
-        //   m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
-        //   m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);            
-        // }
-        // if(drive_control.getLeftY() < 0) {
-        //   FLdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-        //   FRdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-        //   BRdriveMotor.set(drive_control.getLeftY() / 4);
-        //   BLdriveMotor.set(drive_control.getLeftY() / 4);
-  
-        //   m_PIDController1.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
-        //   m_PIDController2.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
-        //   m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
-        //   m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);   
-        // }
-
-        // turbo and sniper decision
-        switch (speed_control) {
-          case drive_control.getRightBumper() == true: {
-            int speedIndex = 1;
-          }
-          case drive_control.getLeftBumper() == true: {
-            int speedIndex = 2;
-          }
+          m_PIDController1.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
+          m_PIDController2.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
+          m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
+          m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);            
         }
-        // mode entrance logic
-        switch (swerve_modes) {
-          // BASIC SWERVE
-          case(drive_control.getLeftY() > 0): {
-            FLdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-            FRdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-            BRdriveMotor.set(drive_control.getLeftY() / 4);
-            BLdriveMotor.set(drive_control.getLeftY() / 4);
-    
-            m_PIDController1.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
-            m_PIDController2.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
-            m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);
-            m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / -2), CANSparkMax.ControlType.kPosition);            
-          }
-          case(drive_control.getLeftY() < 0): {
-            FLdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-            FRdriveMotor.set((drive_control.getLeftY() * -1) / 4);
-            BRdriveMotor.set(drive_control.getLeftY() / 4);
-            BLdriveMotor.set(drive_control.getLeftY() / 4);
-    
-            m_PIDController1.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
-            m_PIDController2.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
-            m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
-            m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);   
-          }
+        if(drive_control.getLeftY() < 0) {
+          FLdriveMotor.set((drive_control.getLeftY() * -1) / 4);
+          FRdriveMotor.set((drive_control.getLeftY() * -1) / 4);
+          BRdriveMotor.set(drive_control.getLeftY() / 4);
+          BLdriveMotor.set(drive_control.getLeftY() / 4);
+  
+          m_PIDController1.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
+          m_PIDController2.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
+          m_PIDController3.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);
+          m_PIDController4.setReference(((drive_control.getRawAxis(0) * -10) / 2), CANSparkMax.ControlType.kPosition);   
 
-          // ROTATIONAL SWERVE
-          case(drive_control.getRightX() > .005): {
-            m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            FLdriveMotor.set(frontLeftSpeed);
-            m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-            FRdriveMotor.set(-1 * frontRightSpeed);
-            m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            BLdriveMotor.set(-1 * backLeftSpeed);
-            m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-            BRdriveMotor.set(backRightSpeed);
-          }
-          case(drive_control.getRightX() < -.005): {
-            m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            FLdriveMotor.set(-1 * frontLeftSpeed);
-            m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-            FRdriveMotor.set(frontRightSpeed);
-            m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            BLdriveMotor.set(backLeftSpeed);
-            m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-            BRdriveMotor.set(-1 * backRightSpeed);    
-           }
-           case(drive_control.getRawAxis(0) == 1): {
-            m_PIDController1.setReference(4,  CANSparkMax.ControlType.kPosition);
-            FLdriveMotor.set(- .25);
-            m_PIDController2.setReference(4,  CANSparkMax.ControlType.kPosition);
-            FRdriveMotor.set(- .25);
-            m_PIDController3.setReference(4,  CANSparkMax.ControlType.kPosition);
-            BLdriveMotor.set(.25);
-            m_PIDController4.setReference(4,  CANSparkMax.ControlType.kPosition);
-            BRdriveMotor.set(.25);
-          }
-          case(drive_control.getRawAxis(0) == -1): {
-            m_PIDController1.setReference(4,  CANSparkMax.ControlType.kPosition);
-            FLdriveMotor.set(.25);
-            m_PIDController2.setReference(4,  CANSparkMax.ControlType.kPosition);
-            FRdriveMotor.set(.25);
-            m_PIDController3.setReference(4,  CANSparkMax.ControlType.kPosition);
-            BLdriveMotor.set(- .25);
-            m_PIDController4.setReference(4,  CANSparkMax.ControlType.kPosition);
-            BRdriveMotor.set(- .25);
-          }
-          case(drive_control.getRightTriggerAxis() > .05): {
-            m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            m_PIDController2.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            FLdriveMotor.set((drive_control.getLeftY() * -1));
-            FRdriveMotor.set((drive_control.getLeftY() * -1));
-            BRdriveMotor.set(drive_control.getLeftY());
-            BLdriveMotor.set(drive_control.getLeftY());
-          }
-          case(drive_control.getLeftBumper() == true) {
-            m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-            m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-            m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-            FLdriveMotor.set(drive_control.getRightX() / 15);
-            FRdriveMotor.set((drive_control.getRightX() * -1) / 15);
-            BRdriveMotor.set(drive_control.getRightX() / 15);
-            BLdriveMotor.set((drive_control.getRightX() * -1) / 15);
-          }
+        }
+        if(drive_control.getRightX() > .005) {
+          m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
+          FLdriveMotor.set(frontLeftSpeed);
+          m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
+          FRdriveMotor.set(-1 * frontRightSpeed);
+          m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
+          BLdriveMotor.set(-1 * backLeftSpeed);
+          m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
+          BRdriveMotor.set(backRightSpeed);
+        }
+          // Rotation
+        if(drive_control.getRightX() < -.005) {
+          m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
+          FLdriveMotor.set(-1 * frontLeftSpeed);
+          m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
+          FRdriveMotor.set(frontRightSpeed);
+          m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
+          BLdriveMotor.set(backLeftSpeed);
+          m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
+          BRdriveMotor.set(-1 * backRightSpeed);    
+        }
 
+        SnakeDrive();
+        AimBot();
+        StrafeSwerve();
         }
 
         // mode exit logic 
 
+
+
+  public void StrafeSwerve() {
+    if(drive_control.getRawAxis(0) == 1) {
+      m_PIDController1.setReference(4,  CANSparkMax.ControlType.kPosition);
+      FLdriveMotor.set(- .25);
+      m_PIDController2.setReference(4,  CANSparkMax.ControlType.kPosition);
+      FRdriveMotor.set(- .25);
+      m_PIDController3.setReference(4,  CANSparkMax.ControlType.kPosition);
+      BLdriveMotor.set(.25);
+      m_PIDController4.setReference(4,  CANSparkMax.ControlType.kPosition);
+      BRdriveMotor.set(.25);
+    }
+    if(drive_control.getRawAxis(0) == -1) {
+      m_PIDController1.setReference(4,  CANSparkMax.ControlType.kPosition);
+      FLdriveMotor.set(.25);
+      m_PIDController2.setReference(4,  CANSparkMax.ControlType.kPosition);
+      FRdriveMotor.set(.25);
+      m_PIDController3.setReference(4,  CANSparkMax.ControlType.kPosition);
+      BLdriveMotor.set(- .25);
+      m_PIDController4.setReference(4,  CANSparkMax.ControlType.kPosition);
+      BRdriveMotor.set(- .25);
+    }    
+  }
+  ACTION 
+  public void SnakeDrive() {
+    if(drive_control.getRightTriggerAxis() > .05) {
+      m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
+      m_PIDController2.setReference(-2,  CANSparkMax.ControlType.kPosition);
+      FLdriveMotor.set((drive_control.getLeftY() * -1));
+      FRdriveMotor.set((drive_control.getLeftY() * -1));
+      BRdriveMotor.set(drive_control.getLeftY());
+      BLdriveMotor.set(drive_control.getLeftY());
+    }
+    if(drive_control.getLeftTriggerAxis() > .05) {
+      m_PIDController1.setReference(2,  CANSparkMax.ControlType.kPosition);
+      m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
+      FLdriveMotor.set((drive_control.getLeftY() * -1));
+      FRdriveMotor.set((drive_control.getLeftY() * -1));
+      BRdriveMotor.set(drive_control.getLeftY());
+      BLdriveMotor.set(drive_control.getLeftY());
+    }
   }
 
-
-  // public void RotationalSwerve() {
-  //   if(drive_control.getRightX() > .005) {
-  //     m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     FLdriveMotor.set(frontLeftSpeed);
-  //     m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     FRdriveMotor.set(-1 * frontRightSpeed);
-  //     m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     BLdriveMotor.set(-1 * backLeftSpeed);
-  //     m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     BRdriveMotor.set(backRightSpeed);
-  //   }
-  //      // Rotation
-  //   if(drive_control.getRightX() < -.005) {
-  //     m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     FLdriveMotor.set(-1 * frontLeftSpeed);
-  //     m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     FRdriveMotor.set(frontRightSpeed);
-  //     m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     BLdriveMotor.set(backLeftSpeed);
-  //     m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     BRdriveMotor.set(-1 * backRightSpeed);    
-  //    }
-  // } 
-
-  // public void StrafeSwerve() {
-  //   if(drive_control.getRawAxis(0) == 1) {
-  //     m_PIDController1.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     FLdriveMotor.set(- .25);
-  //     m_PIDController2.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     FRdriveMotor.set(- .25);
-  //     m_PIDController3.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     BLdriveMotor.set(.25);
-  //     m_PIDController4.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     BRdriveMotor.set(.25);
-  //   }
-  //   if(drive_control.getRawAxis(0) == -1) {
-  //     m_PIDController1.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     FLdriveMotor.set(.25);
-  //     m_PIDController2.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     FRdriveMotor.set(.25);
-  //     m_PIDController3.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     BLdriveMotor.set(- .25);
-  //     m_PIDController4.setReference(4,  CANSparkMax.ControlType.kPosition);
-  //     BRdriveMotor.set(- .25);
-  //   }    
-  // }
-  // ACTION 
-  // public void SnakeDrive() {
-  //   if(drive_control.getRightTriggerAxis() > .05) {
-  //     m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     m_PIDController2.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     FLdriveMotor.set((drive_control.getLeftY() * -1));
-  //     FRdriveMotor.set((drive_control.getLeftY() * -1));
-  //     BRdriveMotor.set(drive_control.getLeftY());
-  //     BLdriveMotor.set(drive_control.getLeftY());
-  //   }
-  //   if(drive_control.getLeftTriggerAxis() > .05) {
-  //     m_PIDController1.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     FLdriveMotor.set((drive_control.getLeftY() * -1));
-  //     FRdriveMotor.set((drive_control.getLeftY() * -1));
-  //     BRdriveMotor.set(drive_control.getLeftY());
-  //     BLdriveMotor.set(drive_control.getLeftY());
-  //   }
-  // }
-
-  // public void AimBot() {
-  //   if(drive_control.getLeftBumper() == true) {
-  //     m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-  //     m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-  //     FLdriveMotor.set(drive_control.getRightX() / 15);
-  //     FRdriveMotor.set((drive_control.getRightX() * -1) / 15);
-  //     BRdriveMotor.set(drive_control.getRightX() / 15);
-  //     BLdriveMotor.set((drive_control.getRightX() * -1) / 15);
-  //   }
-  // }
+  public void AimBot() {
+    if(drive_control.getLeftBumper() == true) {
+      m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
+      m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
+      m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
+      m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
+      FLdriveMotor.set(drive_control.getRightX() / 15);
+      FRdriveMotor.set((drive_control.getRightX() * -1) / 15);
+      BRdriveMotor.set(drive_control.getRightX() / 15);
+      BLdriveMotor.set((drive_control.getRightX() * -1) / 15);
+    }
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
