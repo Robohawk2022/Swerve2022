@@ -66,11 +66,15 @@ public class Robot extends TimedRobot {
   double b = (L / rotationSpeed);
   double c = (W / rotationSpeed);
   double d = (W / rotationSpeed);
-  double backRightSpeed = Math.sqrt ((a * a) + (d * d));
-  double backLeftSpeed = Math.sqrt ((a * a) + (c * c));
-  double frontRightSpeed = Math.sqrt ((b * b) + (d * d));
-  double frontLeftSpeed = Math.sqrt ((b * b) + (c * c));
-  // ALL PARAMS SET
+  double backRight = Math.sqrt ((a * a) + (d * d));
+  double backLeft = Math.sqrt ((a * a) + (c * c));
+  double frontRight = Math.sqrt ((b * b) + (d * d));
+  double frontLeft = Math.sqrt ((b * b) + (c * c));
+  double backRightAngle = Math.atan2 (a, d) / Math.pi;
+  double backLeftAngle = Math.atan2 (a, c) / Math.pi;
+  double frontRightAngle = Math.atan2 (b, d) / Math.pi;
+  double frontLeftAngle = Math.atan2 (b, c) / Math.pi;
+
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -200,6 +204,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
         // read PID coefficients from SmartDashboard
+        int SwerveMode = 0;
         double p = SmartDashboard.getNumber("P Gain", 0);
         double i = SmartDashboard.getNumber("I Gain", 0);
         double d = SmartDashboard.getNumber("D Gain", 0);
@@ -246,22 +251,20 @@ public class Robot extends TimedRobot {
         }
           // Rotation
         if(drive_control.getRightX() < -.005) {
-          m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-          FLdriveMotor.set(-1 * frontLeftSpeed);
-          m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-          FRdriveMotor.set(frontRightSpeed);
-          m_PIDController3.setReference(-2,  CANSparkMax.ControlType.kPosition);
-          BLdriveMotor.set(backLeftSpeed);
-          m_PIDController4.setReference(2,  CANSparkMax.ControlType.kPosition);
-          BRdriveMotor.set(-1 * backRightSpeed);    
+          m_PIDController1.setReference(-1 * frontleftAngle,  CANSparkMax.ControlType.kPosition);
+          FLdriveMotor.set(-1 * .25);
+          m_PIDController2.setReference(frontRightAngle,  CANSparkMax.ControlType.kPosition);
+          FRdriveMotor.set(.25);
+          m_PIDController3.setReference(-1 * backLeftAngle,  CANSparkMax.ControlType.kPosition);
+          BLdriveMotor.set(.25);
+          m_PIDController4.setReference(backRightAngle,  CANSparkMax.ControlType.kPosition);
+          BRdriveMotor.set(-1 * .25);    
         }
 
         SnakeDrive();
         AimBot();
         StrafeSwerve();
         }
-
-        // mode exit logic 
 
 
 
@@ -287,23 +290,12 @@ public class Robot extends TimedRobot {
       BRdriveMotor.set(- .25);
     }    
   }
-  ACTION 
   public void SnakeDrive() {
-    if(drive_control.getRightTriggerAxis() > .05) {
-      m_PIDController1.setReference(-2,  CANSparkMax.ControlType.kPosition);
-      m_PIDController2.setReference(-2,  CANSparkMax.ControlType.kPosition);
-      FLdriveMotor.set((drive_control.getLeftY() * -1));
-      FRdriveMotor.set((drive_control.getLeftY() * -1));
-      BRdriveMotor.set(drive_control.getLeftY());
-      BLdriveMotor.set(drive_control.getLeftY());
-    }
     if(drive_control.getLeftTriggerAxis() > .05) {
-      m_PIDController1.setReference(2,  CANSparkMax.ControlType.kPosition);
-      m_PIDController2.setReference(2,  CANSparkMax.ControlType.kPosition);
-      FLdriveMotor.set((drive_control.getLeftY() * -1));
-      FRdriveMotor.set((drive_control.getLeftY() * -1));
-      BRdriveMotor.set(drive_control.getLeftY());
-      BLdriveMotor.set(drive_control.getLeftY());
+      int limiter = 5;
+    }
+    else {
+      int limiter = 10;
     }
   }
 
